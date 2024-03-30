@@ -23,9 +23,10 @@ class MovieController extends Controller
         ]);
 
         if (! $validation) {
-            dd('Validation failed', $this->request()->errors());
+            $this->redirect('/admin/movies/add');
+            // dd('Validation failed', $this->request()->errors());
         }
 
-		dd('Validation passed');
+        dd('Validation passed');
     }
 }
