@@ -3,6 +3,7 @@
 namespace App\Core\Router;
 
 use App\Core\Controller\Controller;
+use App\Core\Http\Request;
 use App\Core\View\View;
 use JetBrains\PhpStorm\NoReturn;
 
@@ -10,7 +11,8 @@ class Router
 {
     #[NoReturn]
     public function __construct(
-        private readonly View $view
+        private readonly View $view,
+        private readonly Request $request
     ) {
         $this->initRoutes();
     }
@@ -45,6 +47,7 @@ class Router
             $controller = new $controller();
 
             $controller->setView($this->view);
+            $controller->setRequest($this->request);
             $controller->$action();
         } else {
             call_user_func($route->getAction());

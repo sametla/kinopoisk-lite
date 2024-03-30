@@ -16,12 +16,12 @@ class Container
 
     public function __construct()
     {
+        $this->request = Request::createFromGlobals();
         $this->registerServices();
     }
 
     private function registerServices(): void
     {
-        $this->request = Request::createFromGlobals();
-        $this->router = new Router($this->view = new View());
+        $this->router = new Router($this->view = new View(), $this->request);
     }
 }
