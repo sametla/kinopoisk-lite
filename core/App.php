@@ -10,7 +10,7 @@ class App
 
     public function __construct()
     {
-        $container = new Container();
+        $this->container = new Container();
     }
 
     public function run(): void

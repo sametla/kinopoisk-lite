@@ -2,13 +2,16 @@
 
 namespace App\Core\Router;
 
+use App\Core\Controller\Controller;
+use App\Core\View\View;
 use JetBrains\PhpStorm\NoReturn;
 
 class Router
 {
     #[NoReturn]
-    public function __construct()
-    {
+    public function __construct(
+        private readonly View $view
+    ) {
         $this->initRoutes();
     }
 
@@ -38,8 +41,10 @@ class Router
         if (is_array($route->getAction())) {
             [$controller, $action] = $route->getAction();
 
+            /** @var Controller $controller */
             $controller = new $controller();
 
+            $controller->setView($this->view);
             $controller->$action();
         } else {
             call_user_func($route->getAction());

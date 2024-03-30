@@ -2,10 +2,12 @@
 
 namespace App\Controllers;
 
-class MovieController
+use App\Core\Controller\Controller;
+
+class MovieController extends Controller
 {
-    public function index()
+    public function index(): void
     {
-        include_once ROOT.'/views/pages/movies.php';
+        $this->view('movies');
     }
 }

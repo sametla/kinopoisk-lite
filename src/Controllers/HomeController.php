@@ -2,10 +2,12 @@
 
 namespace App\Controllers;
 
-class HomeController
+use App\Core\Controller\Controller;
+
+class HomeController extends Controller
 {
-    public function index()
+    public function index(): void
     {
-        include_once ROOT.'/views/pages/home.php';
+        $this->view('home');
     }
 }
