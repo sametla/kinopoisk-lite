@@ -18,6 +18,14 @@ class MovieController extends Controller
 
     public function store(): void
     {
-		dd($this->request());
+        $validation = $this->request()->validate([
+            'name' => ['required', 'min:3', 'max:50'],
+        ]);
+
+        if (! $validation) {
+            dd('Validation failed', $this->request()->errors());
+        }
+
+		dd('Validation passed');
     }
 }
