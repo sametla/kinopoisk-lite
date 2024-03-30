@@ -1,3 +1,11 @@
 <?php
+/**
+ * @var \App\Core\View\View $view
+ */
+?>
 
-echo '<h1>movies</h1>';
+<?php $view->component('header') ?>
+
+<h1>movies page</h1>
+
+<?php $view->component('footer') ?>

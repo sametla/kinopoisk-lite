@@ -1,3 +1,11 @@
 <?php
+/**
+ * @var \App\Core\View\View $view
+ */
+?>
 
-echo '<h1>welcome home</h1>';
+<?php $view->component('header') ?>
+
+<h1>home page</h1>
+
+<?php $view->component('footer') ?>
