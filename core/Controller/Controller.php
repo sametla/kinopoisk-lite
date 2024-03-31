@@ -2,6 +2,7 @@
 
 namespace App\Core\Controller;
 
+use App\Core\Database\DatabaseInterface;
 use App\Core\Http\RedirectInterface;
 use App\Core\Http\RequestInterface;
 use App\Core\Session\SessionInterface;
@@ -17,6 +18,8 @@ abstract class Controller
     private RequestInterface $request;
 
     private SessionInterface $session;
+
+    private DatabaseInterface $database;
 
     public function view(string $name): void
     {
@@ -56,5 +59,15 @@ abstract class Controller
     public function redirect(string $url): void
     {
         $this->redirect->to($url);
+    }
+
+    public function setDatabase(\App\Core\Database\DatabaseInterface $database)
+    {
+        $this->database = $database;
+    }
+
+    public function db(): DatabaseInterface
+    {
+        return $this->database;
     }
 }

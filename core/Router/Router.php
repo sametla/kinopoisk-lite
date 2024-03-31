@@ -3,6 +3,7 @@
 namespace App\Core\Router;
 
 use App\Core\Controller\Controller;
+use App\Core\Database\DatabaseInterface;
 use App\Core\Http\RedirectInterface;
 use App\Core\Http\RequestInterface;
 use App\Core\Session\SessionInterface;
@@ -16,7 +17,8 @@ class Router implements RouterInterface
         private readonly ViewInterface $view,
         private readonly RequestInterface $request,
         private readonly RedirectInterface $redirect,
-        private readonly SessionInterface $session
+        private readonly SessionInterface $session,
+        private readonly DatabaseInterface $db,
     ) {
         $this->initRoutes();
     }
@@ -54,6 +56,7 @@ class Router implements RouterInterface
             $controller->setRequest($this->request);
             $controller->setRedirect($this->redirect);
             $controller->setSession($this->session);
+            $controller->setDatabase($this->db);
             $controller->$action();
         } else {
             call_user_func($route->getAction());
