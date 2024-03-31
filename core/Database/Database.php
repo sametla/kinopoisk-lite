@@ -18,14 +18,31 @@ class Database implements DatabaseInterface
 
     public function insert(string $table, array $data): int|false
     {
-        // TODO: Implement insert() method.
+        $fields = array_keys($data);
+
+        $columns = implode(', ', $fields);
+        $binds = implode(', ', array_map(static fn ($field) => ":$field", $fields));
+
+        $sql = "INSERT INTO {$table} ({$columns}) VALUES ({$binds})";
+
+        $stmt = $this->pdo->prepare($sql);
+
+        try {
+            $stmt->execute($data);
+        } catch (PDOException $e) {
+            echo "Query failed: {$e->getMessage()}";
+
+            return false;
+        }
+
+        return $this->pdo->lastInsertId();
     }
 
     private function connect()
     {
         $driver = $this->config->get('database.driver');
         $host = $this->config->get('database.host');
-        $dbname = $this->config->get('database.name');
+        $dbname = $this->config->get('database.dbname');
         $port = $this->config->get('database.port');
         $username = $this->config->get('database.username');
         $password = $this->config->get('database.password');
