@@ -2,11 +2,11 @@
 
 namespace App\Core\Http;
 
-use App\Core\Validator\Validator;
+use App\Core\Validator\ValidatorInterface;
 
-class Request
+class Request implements RequestInterface
 {
-    private Validator $validator;
+    private ValidatorInterface $validator;
 
     public function __construct(
         public readonly array $get,
@@ -37,7 +37,7 @@ class Request
         return $this->get[$key] ?? $this->post[$key] ?? $default;
     }
 
-    public function setValidator(Validator $validator): void
+    public function setValidator(ValidatorInterface $validator): void
     {
         $this->validator = $validator;
     }

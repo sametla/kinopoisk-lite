@@ -3,18 +3,20 @@
 namespace App\Core\Router;
 
 use App\Core\Controller\Controller;
-use App\Core\Http\Redirect;
-use App\Core\Http\Request;
-use App\Core\View\View;
+use App\Core\Http\RedirectInterface;
+use App\Core\Http\RequestInterface;
+use App\Core\Session\SessionInterface;
+use App\Core\View\ViewInterface;
 use JetBrains\PhpStorm\NoReturn;
 
-class Router
+class Router implements RouterInterface
 {
     #[NoReturn]
     public function __construct(
-        private readonly View $view,
-        private readonly Request $request,
-        private readonly Redirect $redirect
+        private readonly ViewInterface $view,
+        private readonly RequestInterface $request,
+        private readonly RedirectInterface $redirect,
+        private readonly SessionInterface $session
     ) {
         $this->initRoutes();
     }
@@ -51,6 +53,7 @@ class Router
             $controller->setView($this->view);
             $controller->setRequest($this->request);
             $controller->setRedirect($this->redirect);
+            $controller->setSession($this->session);
             $controller->$action();
         } else {
             call_user_func($route->getAction());

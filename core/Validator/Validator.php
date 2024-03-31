@@ -2,7 +2,7 @@
 
 namespace App\Core\Validator;
 
-class Validator
+class Validator implements ValidatorInterface
 {
     private array $errors = [];
 
@@ -33,10 +33,10 @@ class Validator
         return empty($this->errors);
     }
 
-	public function errors(): array
-	{
-		return $this->errors;
-	}
+    public function errors(): array
+    {
+        return $this->errors;
+    }
 
     private function validateRule(string $key, string $ruleName, ?string $ruleValue = null): string|false
     {
